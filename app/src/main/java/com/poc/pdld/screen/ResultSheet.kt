@@ -18,6 +18,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.poc.pdld.NavigationItem
 import com.poc.pdld.data.Results
 import com.poc.pdld.data.Subjects
 import com.poc.pdld.viewmodel.ResultViewModel
@@ -44,15 +45,17 @@ fun ResultSheet(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
         TextField(value = studentName.value, onValueChange = { studentName.value = it }, label = { Text("Student Name") })
         TextField(value = studentClass.value, onValueChange = { studentClass.value = it }, label = { Text("Class") })
         TextField(value = fatherName.value, onValueChange = { fatherName.value = it }, label = { Text("Father's Name") })
         TextField(value = motherName.value, onValueChange = { motherName.value = it }, label = { Text("Mother's Name") })
         TextField(value = rollNo.value, onValueChange = { rollNo.value = it }, label = { Text("Roll Number") }, keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number))
 
-        Text("Enter Marks", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+        Text("Enter Marks", fontSize = 18.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(16.dp))
 
         TextField(value = maths.value, onValueChange = { maths.value = it }, label = { Text("Maths") }, keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number))
         TextField(value = science.value, onValueChange = { science.value = it }, label = { Text("Science") }, keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number))
@@ -80,9 +83,15 @@ fun ResultSheet(
                     totalMarks = totalMarks,
                     rollNo = rollNo.value.toIntOrNull() ?: 0
                 )
-            viewModel.addResult(result =result)}
+
+                viewModel.addResult(result =result)
+                navController.navigate(NavigationItem.Home.route)
+
+            }
+
+
         ) {
-            Text("Submit")
+            Text("Submit Student Result")
         }
 
     }
