@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.util.Log
 import androidx.compose.runtime.MutableState
 
 fun checkInternetAvailability() : Boolean {
@@ -24,7 +25,6 @@ class NetworkReceiver(private val isOnline: MutableState<Boolean>) : BroadcastRe
     }
 
     companion object {
-
         fun register(context: Context, isOnline: MutableState<Boolean>): NetworkReceiver {
             val receiver = NetworkReceiver(isOnline)
             val filter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
@@ -33,7 +33,11 @@ class NetworkReceiver(private val isOnline: MutableState<Boolean>) : BroadcastRe
         }
 
         fun unregister(context: Context, receiver: NetworkReceiver) {
-            context.unregisterReceiver(receiver)
+            try {
+                context.unregisterReceiver(receiver)
+            } catch (e: IllegalArgumentException) {
+                Log.w("NetworkReceiver", "Receiver not registered or already unregistered.")
+            }
         }
 
         fun checkNetworkStatus(context: Context): Boolean {

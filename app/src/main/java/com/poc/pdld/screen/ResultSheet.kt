@@ -10,6 +10,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -27,6 +28,7 @@ import com.poc.pdld.viewmodel.ResultViewModel
 
 @Composable
 fun ResultSheet(
+    isOnline : MutableState<Boolean>,
     navController: NavController,
     viewModel: ResultViewModel
 ) {
@@ -82,7 +84,9 @@ fun ResultSheet(
                     motherName = motherName.value,
                     marks = listOf(marks),
                     totalMarks = totalMarks,
-                    rollNo = rollNo.value.toIntOrNull() ?: 0
+                    rollNo = rollNo.value.toIntOrNull() ?: 0,
+                    lastUpdated = System.currentTimeMillis(),
+                    isSynced = isOnline.value
                 )
 
                 viewModel.addResult(result =result)

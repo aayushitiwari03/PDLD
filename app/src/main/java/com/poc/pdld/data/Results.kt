@@ -2,6 +2,7 @@ package com.poc.pdld.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
@@ -38,6 +39,15 @@ data class Results
     @ColumnInfo(name = "student_roll_number")
     val rollNo : Int,
 
+
+    @ColumnInfo(name = "last_synced")
+    val lastUpdated : Long?,
+
+
+    @ColumnInfo(name = "is_synced")
+    val isSynced: Boolean
+
+
 )
 
 data class Subjects(
@@ -51,3 +61,4 @@ data class Subjects(
 enum class Grade{
     A,B,C,D,F
 }
+

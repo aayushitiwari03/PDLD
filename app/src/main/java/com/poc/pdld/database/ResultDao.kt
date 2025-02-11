@@ -31,4 +31,13 @@ interface ResultDao {
     @Query("DELETE FROM student_results")
     fun deleteAllResults()
 
+    @Query("SELECT * FROM student_results WHERE is_synced = 0")
+    suspend fun getUnsyncedResults(): List<Results>
+
+    @Query("UPDATE student_results SET is_synced = :synced, last_synced = :lastSynced WHERE id = :id")
+    suspend fun updateSyncStatus(id: Int, synced: Boolean, lastSynced: Long?)
+
+    @Query("SELECT last_synced FROM student_results ORDER BY last_synced DESC LIMIT 1")
+    fun getLastSynced(): LiveData<Long?>
+
 }

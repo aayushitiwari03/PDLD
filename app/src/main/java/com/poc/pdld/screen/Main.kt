@@ -25,6 +25,7 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -45,17 +46,17 @@ import com.poc.pdld.viewmodel.ResultViewModel
 
 @Composable
 fun Main(
-    modifier: Modifier,
     navController: NavController,
     isOnline: MutableState<Boolean>,
     viewModel: ResultViewModel
 ) {
+    val lastSynced by viewModel.getLastSyncedTime().observeAsState()
 
     Column (
-        modifier = modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
     ){
         Row (
-            modifier = modifier
+            modifier = Modifier
                 .padding(
                     top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding() + 16.dp,
                 )
@@ -72,7 +73,7 @@ fun Main(
                 tint = if (isOnline.value) Color.Green else Color.Red
             )
 
-            Spacer(modifier = Modifier.width(12.dp))
+            Spacer(modifier = Modifier.width(10.dp))
 
             Text(
                 text = if (isOnline.value) "Status : Online" else "Status: Offline",
@@ -82,6 +83,12 @@ fun Main(
             )
 
         }
+
+        Text(
+            text = "Last Synced: ${getTimeAgo(lastSynced ?: 0)}",
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.padding(16.dp)
+        )
 
         ShowResults(navController = navController, viewModel = viewModel)
 
@@ -102,7 +109,8 @@ fun Main(
             },
 
             modifier = Modifier
-                .size(56.dp).align(Alignment.End)
+                .size(56.dp).align(Alignment.End),
+            containerColor = Color(0xFF7D5260)
         ) {
             Icon(
                 imageVector = Icons.Default.Add,
@@ -156,5 +164,24 @@ fun ShowResults(navController: NavController, viewModel: ResultViewModel) {
                 }
         }
 
+    }
+}
+
+fun getTimeAgo(timestamp: Long): String {
+
+    val now = System.currentTimeMillis()
+    val diff = now - timestamp
+    val minutes = diff / (1000 * 60)
+    val hours = minutes / 60
+    val days = hours / 24
+
+    return when {
+        minutes < 1 -> "Just now"
+        minutes == 1L -> "1 minute ago"
+        minutes < 60 -> "$minutes minutes ago"
+        hours == 1L -> "1 hour ago"
+        hours < 24 -> "$hours hours ago"
+        days == 1L -> "1 day ago"
+        else -> "$days days ago"
     }
 }

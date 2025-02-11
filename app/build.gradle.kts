@@ -75,4 +75,14 @@ dependencies {
     //GSON
     implementation ("com.google.code.gson:gson:2.10.1")
 
+
+    // Kotlin Coroutines
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
+
+    //firestore
+    implementation ("com.google.firebase:firebase-firestore-ktx:25.1.2")
+
+    //lifecycle
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.7")
 }
