@@ -1,5 +1,6 @@
 package com.poc.pdld.screen
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -146,6 +147,7 @@ fun ShowResults(navController: NavController, viewModel: ResultViewModel) {
                                 modifier = Modifier.size(28.dp).align(Alignment.CenterVertically)
                                     .clickable {
                                         viewModel.deleteResult(result.id)
+                                        Toast.makeText(navController.context, "Result Delete", Toast.LENGTH_SHORT).show()
                                     },
                                 tint = Color.Black
                             )

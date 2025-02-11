@@ -1,5 +1,6 @@
 package com.poc.pdld.screen
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -86,6 +87,7 @@ fun ResultSheet(
 
                 viewModel.addResult(result =result)
                 navController.navigate(NavigationItem.Home.route)
+                Toast.makeText(navController.context, "Result Submitted", Toast.LENGTH_SHORT).show()
 
             }
 
