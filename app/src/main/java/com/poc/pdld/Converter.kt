@@ -1,19 +1,22 @@
 package com.poc.pdld
 
 import androidx.room.TypeConverter
-import androidx.room.TypeConverters
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.poc.pdld.data.Subjects
 
 class Converter {
+    private val gson = Gson()
+
     @TypeConverter
-    fun fromMarksList(marks : List<Subjects>): String {
-        return marks.joinToString (",")
+    fun fromSubjectsList(subjects: List<Subjects>): String {
+        return gson.toJson(subjects)
     }
 
     @TypeConverter
-    fun toMarksInt(marks : String): List<Subjects> {
-        return marks.split(",").map {
-            Subjects(it.toInt(), it.toInt(), it.toInt(), it.toInt(), it.toInt())
-        }
+    fun toSubjectsList(subjectsString: String): List<Subjects> {
+        val listType = object : TypeToken<List<Subjects>>() {}.type
+        return gson.fromJson(subjectsString, listType)
     }
+
 }

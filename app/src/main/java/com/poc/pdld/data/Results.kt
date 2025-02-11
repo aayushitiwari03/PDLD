@@ -3,6 +3,9 @@ package com.poc.pdld.data
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverter
+import androidx.room.TypeConverters
+import com.poc.pdld.Converter
 import org.jetbrains.annotations.NotNull
 import javax.security.auth.Subject
 

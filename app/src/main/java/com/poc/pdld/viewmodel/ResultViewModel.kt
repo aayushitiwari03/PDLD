@@ -16,7 +16,6 @@ class ResultViewModel(
         return true
     }
 
-    val allStudent = resultRepository.getAllResults()
     val foundResult = resultRepository.foundStudent
 
     fun getAllResults() = resultRepository.getAllResults()

@@ -12,7 +12,6 @@ class ResultRepository(
     private val resultDao: ResultDao
 ) {
 
-    val allStudent = MutableLiveData<List<Results>>()
     val foundStudent = MutableLiveData<Results>()
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
 
