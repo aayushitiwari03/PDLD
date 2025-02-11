@@ -26,7 +26,9 @@ import com.poc.pdld.ui.theme.PDLDTheme
 import com.poc.pdld.viewmodel.ResultViewModel
 import com.poc.pdld.viewmodel.ResultViewModelFactory
 
-/* The data can post through apps which will be stored in the database
+/*
+
+The data can post through apps which will be stored in the database
 and posted on the server database when the internet connection will be their
 
 1. Offline Data Submission - Room
