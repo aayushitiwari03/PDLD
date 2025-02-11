@@ -25,8 +25,8 @@ interface ResultDao {
     @Update
     fun updateResult(result: Results)
 
-    @Delete
-    fun deleteResult(result: Results)
+    @Query("DELETE FROM student_results WHERE id = :id")
+    fun deleteResult(id: Int)
 
     @Query("DELETE FROM student_results")
     fun deleteAllResults()

@@ -39,7 +39,7 @@ class ResultRepository(
         }
     }
 
-    fun deleteResults(deleteResults: Results) {
+    fun deleteResults(deleteResults: Int) {
         coroutineScope.launch(Dispatchers.IO) {
             resultDao.deleteResult(deleteResults)
         }

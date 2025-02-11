@@ -1,5 +1,6 @@
 package com.poc.pdld.screen
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,6 +20,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -124,14 +126,33 @@ fun ShowResults(navController: NavController, viewModel: ResultViewModel) {
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(8.dp)
                     ) {
-                        Column(modifier = Modifier.padding(16.dp)) {
-                            Text("Name ${result.name}", fontWeight = FontWeight.Bold)
-                            Text("Class: ${result.clas}")
-                            Text("Roll No: ${result.rollNo}")
-                            Text("Total Marks: ${result.totalMarks}", fontWeight = FontWeight.Bold)
+                        Row (
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ){
+                            Column(
+                                modifier = Modifier.padding(16.dp)) {
+                                Text("Name : ${result.name}", fontWeight = FontWeight.Bold)
+                                Text("Class : ${result.clas}")
+                                Text("Roll No: ${result.rollNo}")
+                                Text("Total Marks: ${result.totalMarks}", fontWeight = FontWeight.Bold)
+                            }
+
+                            Icon(
+                                imageVector = Icons.Default.Delete,
+                                contentDescription = "Delete",
+                                modifier = Modifier.size(28.dp).align(Alignment.CenterVertically)
+                                    .clickable {
+                                        viewModel.deleteResult(result.id)
+                                    },
+                                tint = Color.Black
+                            )
+
                         }
-                    }
                 }
         }
 
+    }
 }

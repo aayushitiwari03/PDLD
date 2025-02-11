@@ -32,7 +32,7 @@ class ResultViewModel(
         getAllResults()
     }
 
-    fun deleteResult(result: Results) {
+    fun deleteResult(result: Int) {
         resultRepository.deleteResults(result)
         getAllResults()
     }
