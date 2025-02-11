@@ -26,6 +26,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -39,8 +40,9 @@ import com.poc.pdld.data.Results
 @Composable
 fun Main(
     modifier: Modifier,
-){
-    var isVisible = remember { false }
+    isOnline: MutableState<Boolean>
+) {
+    var isVisible by remember { mutableStateOf(false) }
 
     Column (
         modifier = modifier.fillMaxSize(),
@@ -58,15 +60,15 @@ fun Main(
 
             Icon(
                 painter = painterResource(R.drawable.baseline_radio_button_checked_24),
-                contentDescription = "Radio Button Checked",
-                modifier.size(24.dp),
-                tint = Color.Green
+                contentDescription = if (isOnline.value) "Online" else "Offline",
+                modifier = Modifier.size(24.dp),
+                tint = if (isOnline.value) Color.Green else Color.Red
             )
 
-            Spacer(modifier.width(12.dp))
+            Spacer(modifier = Modifier.width(12.dp))
 
             Text(
-                text = "Status : Online",
+                text = if (isOnline.value) "Status : Online" else "Status: Offline",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black
