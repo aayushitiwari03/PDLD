@@ -25,7 +25,7 @@ data class Results
 
     @ColumnInfo(name = "student_mother_name")
     val motherName : String,
-    
+
     @ColumnInfo(name = "student_marks")
     val marks : List<Subjects>,
 
@@ -34,9 +34,6 @@ data class Results
 
     @ColumnInfo(name = "student_roll_number")
     val rollNo : Int,
-
-//    @ColumnInfo(name = "student_grade")
-//    val grade : List<Grade>
 
 )
 

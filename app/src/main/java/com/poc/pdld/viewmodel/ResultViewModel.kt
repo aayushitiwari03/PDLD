@@ -1,12 +1,20 @@
 package com.poc.pdld.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.poc.pdld.data.Results
 import com.poc.pdld.repository.ResultRepository
 
 class ResultViewModel(
     private val resultRepository: ResultRepository
-) : ViewModel(){
+) : ViewModel(), Lazy<ResultViewModel> {
+
+    override val value: ResultViewModel
+        get() = this
+
+    override fun isInitialized(): Boolean {
+        return true
+    }
 
     val allStudent = resultRepository.getAllResults()
     val foundResult = resultRepository.foundStudent
@@ -32,4 +40,14 @@ class ResultViewModel(
 
     fun deleteAllResults() = resultRepository.deleteAllResults()
 
+}
+
+class ResultViewModelFactory(private val repository: ResultRepository) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(ResultViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return ResultViewModel(repository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
 }

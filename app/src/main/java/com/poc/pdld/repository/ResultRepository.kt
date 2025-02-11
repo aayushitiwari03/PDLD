@@ -16,6 +16,10 @@ class ResultRepository(
     val foundStudent = MutableLiveData<Results>()
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
 
+    fun getAllResults(): LiveData<List<Results>> {
+        return resultDao.getAllResults()
+    }
+
     fun addResult(addResults: Results) {
         coroutineScope.launch(Dispatchers.IO) {
             resultDao.addResult(addResults)
@@ -29,9 +33,6 @@ class ResultRepository(
         }
     }
 
-    fun getAllResults(): LiveData<List<Results>> {
-        return resultDao.getAllResults()
-    }
 
     fun updateResult(updateResults: Results) {
         coroutineScope.launch(Dispatchers.IO) {

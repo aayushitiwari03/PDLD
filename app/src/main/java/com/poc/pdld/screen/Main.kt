@@ -39,12 +39,14 @@ import com.poc.pdld.NavigationItem
 import com.poc.pdld.R
 import com.poc.pdld.Screen
 import com.poc.pdld.data.Results
+import com.poc.pdld.viewmodel.ResultViewModel
 
 @Composable
 fun Main(
     modifier: Modifier,
     navController: NavController,
-    isOnline: MutableState<Boolean>
+    isOnline: MutableState<Boolean>,
+    viewModel: ResultViewModel
 ) {
 
     Column (
