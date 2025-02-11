@@ -36,13 +36,14 @@ The data can post through apps which will be stored in the database
 and posted on the server database when the internet connection will be their
 
 1. Offline Data Submission - Room (Data is submitting and deleting for now offline mode)
-2. Automatic Sync When Internet is Available - Firestore
+2. Automatic Sync When Internet is Available - Firestore - Almost done just add your data locally when internet
+is available it updates on the server database
 3. Data Caching When User is Inactive from screen - AutoSaving
 4. Offline Search Functionality - Search Through Database (Query from Room + Firestore)
 
 */
 
-
+//current issue 2nd point - issue with showing the updated last sync although it's working fine from the backend.
 
 class MainActivity : ComponentActivity() {
 
