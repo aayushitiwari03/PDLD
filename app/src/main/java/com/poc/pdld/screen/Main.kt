@@ -34,12 +34,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.poc.pdld.R
 import com.poc.pdld.data.Results
 
 @Composable
 fun Main(
     modifier: Modifier,
+    navController: NavController,
     isOnline: MutableState<Boolean>
 ) {
     var isVisible by remember { mutableStateOf(false) }
@@ -114,4 +116,9 @@ fun Main(
 
         }
     }
+}
+
+@Composable
+fun ResultSheet(){
+
 }

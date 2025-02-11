@@ -16,12 +16,15 @@ enum class Status{
     ONLINE, OFFLINE
 }
 
-class NetworkReceiver(private val isOnline: MutableState<Boolean>) : BroadcastReceiver() {
+class NetworkReceiver(private val isOnline: MutableState<Boolean>) : BroadcastReceiver(
+
+) {
     override fun onReceive(context: Context, intent: Intent) {
         isOnline.value = checkNetworkStatus(context)
     }
 
     companion object {
+
         fun register(context: Context, isOnline: MutableState<Boolean>): NetworkReceiver {
             val receiver = NetworkReceiver(isOnline)
             val filter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
