@@ -4,16 +4,19 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverter
+import androidx.room.TypeConverters
+import com.poc.pdld.Converter
 import com.poc.pdld.data.Results
 
 
-@Database(entities = [Results::class], version = 1)
+@TypeConverters(Converter::class)
+@Database(entities = [Results::class], version = 1, exportSchema = false)
 abstract class StudentDatabase : RoomDatabase() {
 
     abstract fun resultDao(): ResultDao
 
     companion object{
-
 
         @Volatile
         private var INSTANCE: StudentDatabase? = null

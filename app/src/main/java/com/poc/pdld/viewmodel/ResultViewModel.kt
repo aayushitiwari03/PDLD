@@ -18,7 +18,6 @@ class ResultViewModel(
         getAllResults()
     }
 
-
     fun getResult(id: Int) = resultRepository.getResult(id)
 
     fun updateResult(result: Results) {
@@ -32,4 +31,5 @@ class ResultViewModel(
     }
 
     fun deleteAllResults() = resultRepository.deleteAllResults()
+
 }
