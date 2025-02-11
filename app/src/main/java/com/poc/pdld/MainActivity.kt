@@ -30,7 +30,9 @@ import javax.security.auth.Subject
 and posted on the server database when the internet connection will be their*/
 
 class MainActivity : ComponentActivity() {
+
     private lateinit var networkReceiver: NetworkReceiver
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -74,7 +76,7 @@ fun ResultNavHost(
             Main(modifier = modifier, navController = navController, isOnline = isOnline)
         }
         composable(NavigationItem.ResultSheet.route) {
-            ResultSheet()
+            ResultSheet(navController = navController)
         }
     }
 }

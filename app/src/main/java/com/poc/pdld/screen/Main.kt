@@ -35,7 +35,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.poc.pdld.NavigationItem
 import com.poc.pdld.R
+import com.poc.pdld.Screen
 import com.poc.pdld.data.Results
 
 @Composable
@@ -44,7 +46,6 @@ fun Main(
     navController: NavController,
     isOnline: MutableState<Boolean>
 ) {
-    var isVisible by remember { mutableStateOf(false) }
 
     Column (
         modifier = modifier.fillMaxSize(),
@@ -95,7 +96,7 @@ fun Main(
     ){
         FloatingActionButton(
             onClick = {
-                isVisible = true
+                navController.navigate(NavigationItem.ResultSheet.route)
             },
 
             modifier = Modifier
@@ -108,17 +109,4 @@ fun Main(
             )
         }
     }
-
-    if (isVisible){
-        Card (
-            modifier = Modifier.fillMaxSize()
-        ){
-
-        }
-    }
-}
-
-@Composable
-fun ResultSheet(){
-
 }
