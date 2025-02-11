@@ -27,7 +27,16 @@ import com.poc.pdld.viewmodel.ResultViewModel
 import com.poc.pdld.viewmodel.ResultViewModelFactory
 
 /* The data can post through apps which will be stored in the database
-and posted on the server database when the internet connection will be their*/
+and posted on the server database when the internet connection will be their
+
+1. Offline Data Submission - Room
+2. Automatic Sync When Internet is Available - Firestore
+3. Data Caching When User is Inactive from screen - AutoSaving
+4. Offline Search Functionality - Search Through Database (Query from Room + Firestore)
+
+*/
+
+
 
 class MainActivity : ComponentActivity() {
 
