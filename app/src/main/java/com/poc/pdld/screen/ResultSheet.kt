@@ -1,10 +1,14 @@
 package com.poc.pdld.screen
 
 import android.widget.Toast
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.rememberScrollableState
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -43,13 +47,18 @@ fun ResultSheet(
     val english = remember { mutableStateOf("") }
     val hindi = remember { mutableStateOf("") }
     val socialScience = remember { mutableStateOf("") }
+    val scroll = rememberScrollState()
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(16.dp).scrollable(
+                scroll,
+                orientation = Orientation.Vertical,
+            ),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+
     ) {
 
         TextField(value = studentName.value, onValueChange = { studentName.value = it }, label = { Text("Student Name") })
