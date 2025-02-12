@@ -29,7 +29,8 @@ import com.poc.pdld.screen.ResultSheet
 import com.poc.pdld.ui.theme.PDLDTheme
 import com.poc.pdld.viewmodel.ResultViewModel
 import com.poc.pdld.viewmodel.ResultViewModelFactory
-
+import android.content.Context
+import android.content.SharedPreferences
 /*
 
 The data can post through apps which will be stored in the database
@@ -123,4 +124,34 @@ sealed class NavigationItem(val route: String) {
     data object Home : NavigationItem(Screen.HOME.name)
     data object ResultSheet : NavigationItem(Screen.RESULT_SHEET.name)
 
+}
+fun saveDraft(context: Context, studentName: String, studentClass: String, fatherName: String, motherName: String, rollNo: String, maths: String, science: String, english: String, hindi: String, socialScience: String) {
+    val sharedPreferences: SharedPreferences = context.getSharedPreferences("DraftPrefs", Context.MODE_PRIVATE)
+    val editor = sharedPreferences.edit()
+    editor.putString("studentName", studentName)
+    editor.putString("studentClass", studentClass)
+    editor.putString("fatherName", fatherName)
+    editor.putString("motherName", motherName)
+    editor.putString("rollNo", rollNo)
+    editor.putString("maths", maths)
+    editor.putString("science", science)
+    editor.putString("english", english)
+    editor.putString("hindi", hindi)
+    editor.putString("socialScience", socialScience)
+    editor.apply()
+}
+fun getDraft(context: Context): Map<String, String?> {
+    val sharedPreferences: SharedPreferences = context.getSharedPreferences("DraftPrefs", Context.MODE_PRIVATE)
+    return mapOf(
+        "studentName" to sharedPreferences.getString("studentName", ""),
+        "studentClass" to sharedPreferences.getString("studentClass", ""),
+        "fatherName" to sharedPreferences.getString("fatherName", ""),
+        "motherName" to sharedPreferences.getString("motherName", ""),
+        "rollNo" to sharedPreferences.getString("rollNo", ""),
+        "maths" to sharedPreferences.getString("maths", ""),
+        "science" to sharedPreferences.getString("science", ""),
+        "english" to sharedPreferences.getString("english", ""),
+        "hindi" to sharedPreferences.getString("hindi", ""),
+        "socialScience" to sharedPreferences.getString("socialScience", "")
+    )
 }

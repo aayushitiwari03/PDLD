@@ -14,6 +14,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,40 +28,49 @@ import androidx.navigation.NavController
 import com.poc.pdld.NavigationItem
 import com.poc.pdld.data.Results
 import com.poc.pdld.data.Subjects
+import com.poc.pdld.getDraft
+import com.poc.pdld.saveDraft
 import com.poc.pdld.viewmodel.ResultViewModel
 
 
 @Composable
 fun ResultSheet(
-    isOnline : MutableState<Boolean>,
+    isOnline: MutableState<Boolean>,
     navController: NavController,
     viewModel: ResultViewModel
 ) {
+    val context = navController.context
 
-    val studentName = remember { mutableStateOf("") }
-    val studentClass = remember { mutableStateOf("") }
-    val fatherName = remember { mutableStateOf("") }
-    val motherName = remember { mutableStateOf("") }
-    val rollNo = remember { mutableStateOf("") }
-    val maths = remember { mutableStateOf("") }
-    val science = remember { mutableStateOf("") }
-    val english = remember { mutableStateOf("") }
-    val hindi = remember { mutableStateOf("") }
-    val socialScience = remember { mutableStateOf("") }
+    val draft = getDraft(context)
+    val studentName = remember { mutableStateOf(draft["studentName"] ?: "") }
+    val studentClass = remember { mutableStateOf(draft["studentClass"] ?: "") }
+    val fatherName = remember { mutableStateOf(draft["fatherName"] ?: "") }
+    val motherName = remember { mutableStateOf(draft["motherName"] ?: "") }
+    val rollNo = remember { mutableStateOf(draft["rollNo"] ?: "") }
+    val maths = remember { mutableStateOf(draft["maths"] ?: "") }
+    val science = remember { mutableStateOf(draft["science"] ?: "") }
+    val english = remember { mutableStateOf(draft["english"] ?: "") }
+    val hindi = remember { mutableStateOf(draft["hindi"] ?: "") }
+    val socialScience = remember { mutableStateOf(draft["socialScience"] ?: "") }
     val scroll = rememberScrollState()
+
+    DisposableEffect(Unit) {
+        onDispose {
+            saveDraft(context, studentName.value, studentClass.value, fatherName.value, motherName.value, rollNo.value, maths.value, science.value, english.value, hindi.value, socialScience.value)
+        }
+    }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp).scrollable(
+            .padding(16.dp)
+            .scrollable(
                 scroll,
                 orientation = Orientation.Vertical,
             ),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
-
     ) {
-
         TextField(value = studentName.value, onValueChange = { studentName.value = it }, label = { Text("Student Name") })
         TextField(value = studentClass.value, onValueChange = { studentClass.value = it }, label = { Text("Class") })
         TextField(value = fatherName.value, onValueChange = { fatherName.value = it }, label = { Text("Father's Name") })
@@ -98,18 +108,15 @@ fun ResultSheet(
                     isSynced = isOnline.value
                 )
 
-                viewModel.addResult(result =result)
+                viewModel.addResult(result = result)
                 navController.navigate(NavigationItem.Home.route)
                 Toast.makeText(navController.context, "Result Submitted", Toast.LENGTH_SHORT).show()
 
+                // Clear draft after submission
+                saveDraft(context, "", "", "", "", "", "", "", "", "", "")
             }
-
-
         ) {
             Text("Submit Student Result")
         }
-
     }
-
-
 }
